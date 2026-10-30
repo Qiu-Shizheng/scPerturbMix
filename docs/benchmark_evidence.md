@@ -61,6 +61,12 @@ scPerturbMix has lower CD14 MSE than scGen, with a paired donor-bootstrap differ
 
 The eight donor folds share source training donors. Treatment and control were sequenced in separate lanes in the original study. [Complete mean scores](benchmarks/ifnb_summary.tsv), [donor scores](benchmarks/ifnb_donor_results.tsv), [initialisation results](benchmarks/ifnb_native_seed_results.tsv) and [paired intervals](benchmarks/ifnb_paired_intervals.json) accompany this comparison.
 
+### CPA comparison
+
+The official CPA model is evaluated on the same eight-donor interferon task in native and control-anchored form. Source-cell validation selects its regularization setting and checkpoint. A separate post-warmup evaluation selects checkpoints after the adversarial objective reaches full strength. scPerturbMix has 33.9–38.6% lower MSE than source-selected CPA and 33.1–45.7% lower MSE than post-warmup CPA across the two monocyte populations and two output conventions. Correlation and distribution scores are included alongside MSE. Native CPA has higher response Spearman correlation in some comparisons.
+
+The [unified comparison](benchmark_comparison.md#kang-interferon-responses-in-monocytes) lists CPA with the other matched methods. [Training settings and complete downloadable results](cpa_benchmark.md) provide model-level, donor-level and initialization-level scores.
+
 ## Independent multi-cytokine study
 
 The [Parse PBMC cytokine dataset](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/) contains 9,697,974 blood immune cells from twelve healthy donors exposed to 90 cytokines and PBS controls. The evaluation predicts CD14 and CD16 monocyte responses from seven B-cell, T-cell and natural-killer-cell populations. Every outer fold excludes stimulated cells from the held-out donor and all stimulated target monocytes. Source controls determine the 2,000-gene panel. Inner validation jointly holds out a donor and source population.
@@ -330,7 +336,7 @@ The common-vocabulary denominator contains 14,748 genes, and 2,000 genes are sel
 
 ## Scope of baseline comparisons
 
-The [comparison-scope table](data/baseline_comparison_scope.tsv) records 22 model/task comparisons. It distinguishes common input and scoring conditions from model-specific optimisation and adaptation. Source-selected classical models, pretrained representation adapters, native cell-level models and task-adapted neural models answer different questions. The State dose comparison trains its architecture from scratch. It is not a pretrained-State result. Reconstruction-selected and source-response-selected native checkpoints are reported separately. Folds share source training donors, and technical repeats do not increase the biological sample size.
+The [comparison-scope table](data/baseline_comparison_scope.tsv) records 23 model/task comparisons. It distinguishes common input and scoring conditions from model-specific optimisation and adaptation. Source-selected classical models, pretrained representation adapters, native cell-level models and task-adapted neural models answer different questions. The State dose comparison trains its architecture from scratch. It is not a pretrained-State result. Reconstruction-selected and source-response-selected native checkpoints are reported separately. Folds share source training donors, and technical repeats do not increase the biological sample size.
 
 ## Relative error with a shared untreated reference
 

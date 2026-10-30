@@ -75,11 +75,23 @@ This independent study profiles blood cells before and after interferon stimulat
 | CD14+ monocytes | scVIDR (stable solver, control-anchored) | 0.054583 | 0.8044 |
 | CD14+ monocytes | scGen | 0.055909 | 0.8083 |
 | CD14+ monocytes | Global response scaling | 0.056342 | 0.7881 |
+| CD14+ monocytes | CPA (post-warmup, control-anchored) | 0.079118 | 0.7571 |
+| CD14+ monocytes | CPA | 0.082858 | 0.6187 |
+| CD14+ monocytes | CPA (control-anchored) | 0.083636 | 0.7323 |
+| CD14+ monocytes | CPA (post-warmup) | 0.093255 | 0.5054 |
 | FCGR3A+ monocytes | scVIDR (stable solver) | 0.038559 | 0.8091 |
 | FCGR3A+ monocytes | scGen | 0.040419 | 0.8088 |
 | FCGR3A+ monocytes | scVIDR (stable solver, control-anchored) | 0.041771 | 0.7992 |
 | FCGR3A+ monocytes | scPerturbMix fixed OP3 parameters | 0.042364 | 0.7765 |
 | FCGR3A+ monocytes | Global response scaling | 0.044873 | 0.7773 |
+| FCGR3A+ monocytes | CPA (post-warmup, control-anchored) | 0.063314 | 0.7644 |
+| FCGR3A+ monocytes | CPA (control-anchored) | 0.064070 | 0.7395 |
+| FCGR3A+ monocytes | CPA | 0.068149 | 0.5869 |
+| FCGR3A+ monocytes | CPA (post-warmup) | 0.077975 | 0.5042 |
+
+CPA uses its official model with source-cell validation. The post-warmup rows select checkpoints after the adversarial objective reaches its full weight. Each CPA setting uses eight donor folds and three initializations. Mean-response predictions are averaged over initializations before scoring. Models use their respective training schedules.
+
+[Complete Kang metrics](benchmarks/kang_model_metrics.tsv), including Spearman correlation and cell-distribution distances, and [CPA training and evaluation details](cpa_benchmark.md) accompany this comparison.
 
 ## Wood blood-cell responses with pretrained Stack
 

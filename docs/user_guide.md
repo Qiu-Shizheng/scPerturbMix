@@ -80,6 +80,8 @@ The split is a simple held-out-environment evaluation. For a publication benchma
 
 `baseline_mse` is the reference feature model without the context-conditioned feature block. `proposed_mse` is the reference model with untreated context and dose/time features. `proposed_pearson` is the mean per-gene Pearson correlation across evaluation rows. `source_radius_90` is the 90th-percentile absolute residual on source rows. `test_interval_coverage` is the fraction of held-out expression entries inside that transferred interval.
 
+For published task comparisons, see the [unified benchmark tables](benchmark_comparison.md). The [CPA benchmark guide](cpa_benchmark.md) explains its Kang interferon comparison, checkpoint selection, output conventions and downloadable metrics.
+
 Use MSE and treatment-contrast MSE as separate estimands when studying perturbation effects. A low absolute-expression error can coexist with a weak treatment-effect error when the untreated context explains most of the variance.
 
 ## 5. Optional PyTorch modules
