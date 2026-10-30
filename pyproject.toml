@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scperturbmix"
+version = "0.4.0"
+description = "scPerturbMix: single-cell perturbation response modelling"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{name = "Qiu-Shizheng"}]
+license = {file = "LICENSE"}
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+programs = ["scipy>=1.10"]
+core = ["numpy>=1.23"]
+data = ["anndata>=0.9", "h5py>=3.8", "numpy>=1.23"]
+torch = ["torch>=2.0"]
+all = ["numpy>=1.23", "scipy>=1.10", "anndata>=0.9", "h5py>=3.8", "torch>=2.0"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+scperturbmix-predict = "prado_dt.transfer:main"
+scperturbmix-fit = "prado_dt.transfer_fit:main"
+prado-dt-smoke = "prado_dt.cli:main"
+contextdose-predict = "prado_dt.transfer:main"
+contextdose-fit = "prado_dt.transfer_fit:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
