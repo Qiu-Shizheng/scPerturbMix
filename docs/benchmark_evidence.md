@@ -1,29 +1,61 @@
 # Matched benchmark evidence
 
-The OP3 task predicts responses to known compounds in myeloid cells using B, T and natural killer cells as sources. The main evaluation pools three donors and contains 127 drugs and 5,317 genes. Untreated target controls are available. Every row below uses the same response profiles, genes and control definitions.
+The OP3 screen measures how drugs change gene expression in human blood immune cells. B cells, T cells and natural killer cells provide source responses. Models predict myeloid responses on the same 5,317-gene panel. Donor rows are strata of this cell-population benchmark. Joint donor and cell-population holdouts are described separately in the detailed evidence.
 
-| Predictor | MSE | Mean response Pearson correlation |
-|---|---:|---:|
-| scPerturbMix, fixed search | 0.074658 | 0.2240 |
-| Compound-only gate, fixed search | 0.075912 | 0.1932 |
-| scGPT, frozen complete encoder | 0.078524 | 0.1751 |
-| scGPT, complete encoder fine-tuning | 0.077463 | 0.1927 |
-| scGPT architecture, random initialisation | 0.077438 | 0.1932 |
-| Nicheformer, frozen complete encoder | 0.077321 | 0.1956 |
-| Nicheformer, complete encoder fine-tuning | 0.077371 | 0.1947 |
-| Nicheformer architecture, random initialisation | 0.077393 | 0.1942 |
-| Global response with analytic scaling | 0.077398 | 0.1932 |
-| Compound-only gate, extended search | 0.075823 | 0.1932 |
-| scPerturbMix, extended search | 0.074393 | 0.2251 |
-| scPerturbMix, gene and programme components | **0.073151** | **0.2517** |
-
-The programme model learns coordinated response patterns inside each source-validation fold. The selected OP3 model has 32 programmes and equal gene and programme contributions. It reduces MSE by 3.52% relative to the extended compound-only gate and by 1.67% relative to the gene-only model. A separately selected low-rank response model gives MSE 0.077050. The trained programme model and a source-only fitting interface are included in this package.
+| Model | Conditions | MSE ↓ | MAE ↓ | Response Pearson ↑ | Response Spearman ↑ |
+| --- | --- | --- | --- | --- | --- |
+| scPerturbMix | 127 | 0.073151 | 0.174055 | 0.2517 | 0.1791 |
+| Gene reliability | 127 | 0.074393 | 0.175274 | 0.2251 | 0.1566 |
+| Shared-response gene shrinkage | 127 | 0.074744 | 0.175725 | 0.2378 | 0.1676 |
+| Gene-specific variance shrinkage | 127 | 0.074778 | 0.175337 | 0.2308 | 0.1609 |
+| Shared-response positive-part shrinkage | 127 | 0.074928 | 0.175923 | 0.2332 | 0.1665 |
+| Positive-part gene shrinkage | 127 | 0.075124 | 0.176030 | 0.2236 | 0.1619 |
+| Pooled Stein-form shrinkage | 127 | 0.075726 | 0.176881 | 0.1971 | 0.1522 |
+| Perturbation reliability | 127 | 0.075823 | 0.177192 | 0.1932 | 0.1497 |
+| Unit-penalty pooled Stein-form shrinkage | 127 | 0.075908 | 0.177189 | 0.1971 | 0.1522 |
+| Shared-response pooled Stein-form shrinkage | 127 | 0.076011 | 0.178552 | 0.2038 | 0.1482 |
+| Shared-response compound shrinkage | 127 | 0.076148 | 0.178156 | 0.2062 | 0.1526 |
+| Separate shared-response and intervention amplitudes | 127 | 0.076990 | 0.178443 | 0.2028 | 0.1517 |
+| Low-rank response | 127 | 0.077050 | 0.177662 | 0.1889 | 0.1347 |
+| Nicheformer (frozen encoder) | 127 | 0.077321 | 0.177933 | 0.1956 | 0.1515 |
+| Geneformer V2 (frozen encoder) | 127 | 0.077334 | 0.178066 | 0.1946 | 0.1512 |
+| Nicheformer (fine-tuned encoder) | 127 | 0.077371 | 0.177978 | 0.1947 | 0.1506 |
+| Nicheformer architecture (random initialization) | 127 | 0.077393 | 0.178036 | 0.1942 | 0.1503 |
+| Global response scaling | 127 | 0.077398 | 0.178215 | 0.1932 | 0.1497 |
+| scGPT architecture (random initialization) | 127 | 0.077438 | 0.178107 | 0.1932 | 0.1493 |
+| Geneformer V1 architecture (random initialization) | 127 | 0.077444 | 0.178130 | 0.1931 | 0.1496 |
+| Geneformer V2 architecture (frozen random encoder) | 127 | 0.077453 | 0.178144 | 0.1929 | 0.1495 |
+| scGPT (fine-tuned encoder) | 127 | 0.077463 | 0.178197 | 0.1927 | 0.1503 |
+| scGPT (frozen encoder) | 127 | 0.078524 | 0.180188 | 0.1751 | 0.1382 |
+| Geneformer V1 (fine-tuned encoder) | 127 | 0.082551 | 0.186883 | 0.1346 | 0.1112 |
+| Geneformer V1 (frozen encoder) | 127 | 0.082615 | 0.187306 | 0.1376 | 0.1116 |
+| Shared source response | 127 | 0.083638 | 0.186032 | 0.1307 | 0.0989 |
+| Unit-penalty positive-part gene shrinkage | 127 | 0.083852 | 0.191677 | 0.2236 | 0.1619 |
+| Mean source response | 127 | 0.112929 | 0.232823 | 0.1932 | 0.1497 |
 
 ## Encoder comparison
 
-Complete pretrained encoders process untreated control pseudobulk profiles. A common response head combines the control representation, compound identity and a shared-source-response skip term. Frozen encoders train only the head. Fine-tuning updates all 12 transformer blocks. Random-initialisation controls use the corresponding full architecture. These are task adaptations of control encoders. They do not reproduce the original authors' native single-cell perturbation benchmarks.
+Complete pretrained encoders process untreated control pseudobulk profiles. A common response head combines the context representation, compound identity and a shared-source-response term. These experiments evaluate encoder adaptations for response prediction.
 
-Training duration and response amplitude are selected by leave-one-source-cell-type-out validation. Each neural prediction averages three initialisations. Trained checkpoints are selected from 25, 75 and 150 updates. A zero-update shared-response fallback is evaluated separately. Nicheformer's source validation prefers this fallback when it is eligible, giving MSE 0.077440. The Nicheformer rows in the table show the best trained variant in each family. All 18 trained checkpoints reproduce their saved predictions exactly.
+| Encoder | Transformer layers | Evaluated settings | Representation |
+| --- | --- | --- | --- |
+| scGPT | 12 | Frozen, fine-tuned and random initialization | Model-specific contextual encoding |
+| Nicheformer | 12 | Frozen, fine-tuned and random initialization | Model-specific contextual encoding |
+| Geneformer V1-10M | 6 | Frozen, fine-tuned and random initialization | Masked mean of final-layer gene-token embeddings |
+| Geneformer V2-104M | 12 | Frozen pretrained and frozen random encoders | Source-selected pooling, with the official default identified separately |
+
+Frozen encoders preserve all encoder parameters while training the response head. Geneformer V1 fine-tuning and its random-initialization control update all six encoder layers and the head. scGPT and Nicheformer fine-tuning update their twelve layers. Both Geneformer V2 encoder settings remain frozen, including the random architecture control.
+
+Geneformer V2 accepts sequences of up to 4,096 tokens, including classification and end tokens, using its official vocabulary. The official default representation is the classification token from the penultimate layer. The source-selection candidates also include the mean of final-layer gene-token embeddings, excluding special and padding tokens. Pooling, positive training duration and response amplitude are selected using source-cell-population holdouts. Both reported V2 outputs use source-selected pooling. The V2 pooling search adds a tuning dimension.
+
+Each neural response prediction averages three initializations. Source validation selects trained checkpoints from 25, 75 and 150 updates. A zero-update source-mean fallback is a separate diagnostic. OP3 is a development study, and overlap between model pretraining data and these studies has not been independently excluded.
+
+[Official Geneformer model and tokenizer](https://huggingface.co/ctheodoris/Geneformer), [scGPT](https://github.com/bowang-lab/scGPT) and [Nicheformer](https://github.com/theislab/nicheformer) document the pretrained models. [All matched results](benchmark_comparison.md#op3-drug-responses-in-immune-cells) retain every encoder setting and classical comparator.
+
+| Geneformer V2 setting | Source-selected representation |
+| --- | --- |
+| Pretrained frozen encoder | Penultimate-layer classification token |
+| Random frozen encoder | Penultimate-layer classification token |
 
 ## Donor transfer
 
@@ -47,25 +79,60 @@ The [Kang study](https://doi.org/10.1038/nbt.4042) measures matched untreated an
 
 scPerturbMix uses the gene-gate parameters fixed in the OP3 extended search, with source effects estimated within the new study. This tests transfer of weighting parameters for a known stimulus. The programme search selects the gene-only option in this single-stimulus setting. Both fixed OP3 recipes and all source-selected variants are retained in the accompanying result table.
 
-| Predictor | CD14 monocyte MSE | CD16 monocyte MSE | CD14 response Pearson | CD16 response Pearson |
-|---|---:|---:|---:|---:|
-| scPerturbMix, fixed extended OP3 parameters | **0.051356** | 0.042364 | 0.789 | 0.777 |
-| Compound-only gate | 0.052678 | 0.042690 | 0.788 | 0.777 |
-| Source mean | 0.054077 | 0.043450 | 0.788 | 0.777 |
-| scGen | 0.055909 | 0.040419 | **0.808** | 0.809 |
-| scVIDR | 0.053375 | **0.038652** | 0.804 | **0.809** |
+| Target | Model | Conditions | MSE ↓ | MAE ↓ | Response Pearson ↑ | Response Spearman ↑ |
+| --- | --- | --- | --- | --- | --- | --- |
+| CD14+ monocytes | scPerturbMix fixed OP3 parameters | — | 0.051356 | 0.139769 | 0.7888 | 0.4359 |
+| CD14+ monocytes | Perturbation reliability | — | 0.052678 | 0.140905 | 0.7881 | 0.4370 |
+| CD14+ monocytes | Gene reliability | — | 0.052871 | 0.140584 | 0.7882 | 0.4365 |
+| CD14+ monocytes | scPerturbMix | — | 0.052871 | 0.140584 | 0.7882 | 0.4365 |
+| CD14+ monocytes | scVIDR (original numerical solver) | — | 0.053375 | 0.137688 | 0.8039 | 0.5795 |
+| CD14+ monocytes | scVIDR (stable solver) | — | 0.053393 | 0.137635 | 0.8040 | 0.5794 |
+| CD14+ monocytes | Mean source response | — | 0.054077 | 0.141531 | 0.7881 | 0.4370 |
+| CD14+ monocytes | scVIDR (stable solver, control-anchored) | — | 0.054583 | 0.138366 | 0.8044 | 0.5634 |
+| CD14+ monocytes | scGen | — | 0.055909 | 0.138687 | 0.8083 | 0.5787 |
+| CD14+ monocytes | Global response scaling | — | 0.056342 | 0.142728 | 0.7881 | 0.4370 |
+| CD14+ monocytes | Low-rank response | — | 0.056373 | 0.142764 | 0.7880 | 0.4368 |
+| CD14+ monocytes | scPerturbMix (fixed-parameter sensitivity) | — | 0.067911 | 0.149879 | 0.7893 | 0.4345 |
+| CD14+ monocytes | CPA (post-warmup, control-anchored) | 8 | 0.079118 | 0.157746 | 0.7571 | 0.4369 |
+| CD14+ monocytes | CPA | 8 | 0.082858 | 0.155302 | 0.6187 | 0.5166 |
+| CD14+ monocytes | CPA (control-anchored) | 8 | 0.083636 | 0.160522 | 0.7323 | 0.4140 |
+| CD14+ monocytes | CPA (post-warmup) | 8 | 0.093255 | 0.160871 | 0.5054 | 0.3835 |
+| CD14+ monocytes | biolord (control-anchored) | 8 | 0.093568 | 0.169550 | 0.5562 | 0.4693 |
+| CD14+ monocytes | biolord | 8 | 0.093962 | 0.172178 | 0.5619 | 0.4776 |
+| CD14+ monocytes | No-change control | — | 0.124769 | 0.182156 | — | — |
+| FCGR3A+ monocytes | scVIDR (stable solver) | — | 0.038559 | 0.125226 | 0.8091 | 0.6323 |
+| FCGR3A+ monocytes | scVIDR (original numerical solver) | — | 0.038652 | 0.125421 | 0.8090 | 0.6318 |
+| FCGR3A+ monocytes | scGen | — | 0.040419 | 0.125964 | 0.8088 | 0.6340 |
+| FCGR3A+ monocytes | scVIDR (stable solver, control-anchored) | — | 0.041771 | 0.133465 | 0.7992 | 0.5295 |
+| FCGR3A+ monocytes | scPerturbMix fixed OP3 parameters | — | 0.042364 | 0.137598 | 0.7765 | 0.4393 |
+| FCGR3A+ monocytes | Perturbation reliability | — | 0.042690 | 0.138029 | 0.7773 | 0.4399 |
+| FCGR3A+ monocytes | Gene reliability | — | 0.042946 | 0.137986 | 0.7764 | 0.4397 |
+| FCGR3A+ monocytes | scPerturbMix | — | 0.042946 | 0.137986 | 0.7764 | 0.4397 |
+| FCGR3A+ monocytes | Mean source response | — | 0.043450 | 0.138544 | 0.7773 | 0.4399 |
+| FCGR3A+ monocytes | Global response scaling | — | 0.044873 | 0.139648 | 0.7773 | 0.4399 |
+| FCGR3A+ monocytes | Low-rank response | — | 0.044897 | 0.139677 | 0.7772 | 0.4398 |
+| FCGR3A+ monocytes | scPerturbMix (fixed-parameter sensitivity) | — | 0.053673 | 0.146808 | 0.7765 | 0.4383 |
+| FCGR3A+ monocytes | CPA (post-warmup, control-anchored) | 8 | 0.063314 | 0.154657 | 0.7644 | 0.4342 |
+| FCGR3A+ monocytes | CPA (control-anchored) | 8 | 0.064070 | 0.156058 | 0.7395 | 0.3910 |
+| FCGR3A+ monocytes | CPA | 8 | 0.068149 | 0.152016 | 0.5869 | 0.4939 |
+| FCGR3A+ monocytes | CPA (post-warmup) | 8 | 0.077975 | 0.154930 | 0.5042 | 0.4624 |
+| FCGR3A+ monocytes | biolord (control-anchored) | 8 | 0.079414 | 0.169951 | 0.5715 | 0.4162 |
+| FCGR3A+ monocytes | biolord | 8 | 0.096413 | 0.177241 | 0.5408 | 0.4783 |
+| FCGR3A+ monocytes | No-change control | — | 0.102908 | 0.177429 | — | — |
 
-[scGen](https://github.com/theislab/scgen) and [scVIDR](https://github.com/BhattacharyaLab/scVIDR) use their native variational architectures and objectives: two 800-unit hidden layers, 100 latent coordinates, at most 100 epochs, and source-only validation. Each family has eight donor folds and three initialisations, giving 48 completed fits. All checkpoint reloads reproduce predictions exactly. Mean-response scores use the three-fit ensemble. Distribution scores average individual fits.
+[scGen](https://github.com/theislab/scgen) and [scVIDR](https://github.com/BhattacharyaLab/scVIDR) use their native variational architectures and objectives: two 800-unit hidden layers, 100 latent coordinates, at most 100 epochs, and source-only validation. Each family has eight donor folds and three initialisations, giving 48 fitted models. All checkpoint reloads reproduce predictions exactly. Mean-response scores use the three-fit ensemble. Distribution scores average individual fits.
 
 scPerturbMix has lower CD14 MSE than scGen, with a paired donor-bootstrap difference of −0.004553 (95% interval −0.006480 to −0.002210). The difference against scVIDR includes zero. scVIDR is more accurate for CD16 MSE and both native models have higher response correlations. scPerturbMix has lower squared MMD than both native models in both populations under the declared source-PCA distribution metric. All 42 Hallmark sets meeting coverage requirements in every fold are included.
 
 The eight donor folds share source training donors. Treatment and control were sequenced in separate lanes in the original study. [Complete mean scores](benchmarks/ifnb_summary.tsv), [donor scores](benchmarks/ifnb_donor_results.tsv), [initialisation results](benchmarks/ifnb_native_seed_results.tsv) and [paired intervals](benchmarks/ifnb_paired_intervals.json) accompany this comparison.
 
-### CPA comparison
-
 The official CPA model is evaluated on the same eight-donor interferon task in native and control-anchored form. Source-cell validation selects its regularization setting and checkpoint. A separate post-warmup evaluation selects checkpoints after the adversarial objective reaches full strength. scPerturbMix has 33.9–38.6% lower MSE than source-selected CPA and 33.1–45.7% lower MSE than post-warmup CPA across the two monocyte populations and two output conventions. Correlation and distribution scores are included alongside MSE. Native CPA has higher response Spearman correlation in some comparisons.
 
 The [unified comparison](benchmark_comparison.md#kang-interferon-responses-in-monocytes) lists CPA with the other matched methods. [Training settings and complete downloadable results](cpa_benchmark.md) provide model-level, donor-level and initialization-level scores.
+
+CPA and biolord use their official training objectives with source-only checkpoint selection. The CPA post-warmup sensitivity selects checkpoints after the adversarial objective reaches full weight. Each new native-model setting uses eight donor folds and three initializations. Mean-response predictions are averaged across initializations before scoring. Native and control-anchored outputs remain separate. Stimulated cells from the evaluation donor and all stimulated target monocytes are excluded from fitting. Untreated target cells remain available.
+
+[All matched metrics](benchmarks/matched_model_metrics.tsv), [comparison settings](data/baseline_comparison_scope.tsv), and [CPA training details](cpa_benchmark.md) accompany these results.
 
 ## Independent multi-cytokine study
 
@@ -80,11 +147,11 @@ Fixed minimum support of twenty cells in treatment and matched control yields 1,
 | Source mean | 0.012313 | 0.018521 | 0.3963 | 0.3381 |
 | Untreated | 0.013759 | 0.020295 | Undefined | Undefined |
 
-The selected model reduces MSE by 3.12% and 2.30% relative to the source mean. All twelve folds select zero programme contribution, and predictions match global scaling to displayed precision. Thus this cohort supports response calibration without establishing an additional programme-model benefit. [All nine frozen comparators and four follow-up variants](benchmarks/parse_model_metrics.tsv) are included, alongside [donor scores](benchmarks/parse_donor_metrics.tsv), [paired intervals](benchmarks/parse_paired_intervals.tsv), [coverage](benchmarks/parse_condition_coverage.tsv) and [all-pair weighting sensitivity](benchmarks/parse_profile_weighted_sensitivity.tsv).
+The selected model reduces MSE by 3.12% and 2.30% relative to the source mean. All twelve folds select zero programme contribution, and predictions match global scaling to displayed precision. Thus this cohort supports response calibration without establishing an additional programme-model benefit. [All nine base comparators and four cell-state variants](benchmarks/parse_model_metrics.tsv) are included, alongside [donor scores](benchmarks/parse_donor_metrics.tsv), [paired intervals](benchmarks/parse_paired_intervals.tsv), [coverage](benchmarks/parse_condition_coverage.tsv) and [all-pair weighting sensitivity](benchmarks/parse_profile_weighted_sensitivity.tsv).
 
-### Cell-state follow-up
+### Cell-state conditioning
 
-A follow-up analysis, developed after the frozen evaluation, uses untreated source states to condition response transfer. Hyperparameters remain selected using source-only donor and cell-type holdouts. The selected module has MSE 0.011450 and 0.017577 in CD14 and CD16 monocytes, respectively. These are reductions of 4.01% and 2.86% relative to the frozen selected model. Its predictions are exactly identical to the Gaussian kernel ridge comparator in every fold. This supports the usefulness of cell-state information within this cohort. It does not establish an advantage beyond that classical comparator or constitute a second untouched validation.
+A cell-state-conditioned model uses untreated source states to predict response differences between populations. This is a development analysis within the Parse cohort. Hyperparameters remain selected using source-only donor and cell-type holdouts. The selected module has MSE 0.011450 and 0.017577 in CD14 and CD16 monocytes, respectively. These are reductions of 4.01% and 2.86% relative to the frozen selected model. Its predictions are exactly identical to the Gaussian kernel ridge comparator in every fold. This supports the usefulness of cell-state information within this cohort. It does not establish an advantage beyond that classical comparator or constitute a second untouched validation.
 
 Across the same 32 eligible Hallmark sets, mean-response MSE is 0.003694 and 0.003181, compared with 0.004056 and 0.003462 for the frozen model. Mean response Pearson correlation is 0.3959 and 0.3390. [Complete condition scores](benchmarks/parse_per_condition_metrics.tsv) and [analysis scope](benchmarks/parse_summary.json) accompany the results. Outer folds share source training donors.
 
@@ -96,7 +163,7 @@ An exact decomposition of fixed predictions separates error in the shared cytoki
 
 ### Donor-reliability extension
 
-A subsequent development analysis estimates which source cell-type differences recur across donors. It downweights response components with high donor variability and separately calibrates the shared response and the cell-state correction. Every inner donor and cell-type holdout re-estimates these quantities using only its training sources. A two-amplitude kernel without reliability weighting controls for the additional calibration. Cytokine-level and gene-level weighting are both evaluated, and all twelve source selections choose cytokine-level weighting.
+A donor-reliability model estimates which source cell-type differences recur across donors. It downweights response components with high donor variability and separately calibrates the shared response and the cell-state correction. Every inner donor and cell-type holdout re-estimates these quantities using only its training sources. A two-amplitude kernel without reliability weighting controls for the additional calibration. Cytokine-level and gene-level weighting are both evaluated, and all twelve source selections choose cytokine-level weighting.
 
 | Predictor | CD14 MSE | CD16 MSE | CD14 response Pearson | CD16 response Pearson |
 |---|---:|---:|---:|---:|
@@ -104,7 +171,7 @@ A subsequent development analysis estimates which source cell-type differences r
 | Kernel with two amplitudes | 0.011469 | 0.017601 | 0.3938 | 0.3373 |
 | Source-selected donor reliability | 0.011411 | 0.017533 | 0.4039 | 0.3467 |
 
-The source-selected extension reduces MSE by 0.34% and 0.25% relative to Gaussian kernel ridge. The paired differences are −0.0000385 (95% interval −0.0001842 to 0.0001390) and −0.0000441 (−0.0002089 to 0.0001540). Both intervals include zero, as do those for response Pearson gains. The comparison retains the same 2,003 target pairs, source-control gene panels and donor weighting. These results describe follow-up development after the frozen evaluation, rather than an additional independent confirmation.
+The source-selected extension reduces MSE by 0.34% and 0.25% relative to Gaussian kernel ridge. The paired differences are −0.0000385 (95% interval −0.0001842 to 0.0001390) and −0.0000441 (−0.0002089 to 0.0001540). Both intervals include zero, as do those for response Pearson gains. The comparison retains the same 2,003 target pairs, source-control gene panels and donor weighting. These models are development analyses within the same Parse cohort.
 
 [All compared variants](benchmarks/parse_replicated_model_metrics.tsv), [donor scores](benchmarks/parse_replicated_donor_metrics.tsv), [condition scores](benchmarks/parse_replicated_per_condition_metrics.tsv), [paired intervals](benchmarks/parse_replicated_paired_intervals.tsv) and [source selections](benchmarks/parse_replicated_source_selections.tsv) provide the full comparison. Source-selected and cytokine-weighted predictions coincide and are not independent replications. This extension is an experimental analysis, not a replacement for the packaged trained transfer model.
 
@@ -114,7 +181,7 @@ The provider distributes the original Parse data under CC BY-NC 4.0. This reposi
 
 Untreated monocyte states lie farther from their nearest source state than the queries used in source validation. Across twelve outer folds, the median target-to-validation distance ratios are 2.33 for CD14 and 2.25 for CD16 monocytes. Every target exceeds the largest nearest-source distance observed in its source donor–cell-type validation folds. These distances use the same measured gene panels and no treated target values. [Donor-level geometry](benchmarks/parse_geometry_donor_geometry.tsv) and [summary](benchmarks/parse_geometry_summary.json) provide the measurements.
 
-A controlled follow-up attenuates donor-associated directions in untreated expression before computing kernel similarities. Each inner validation fold re-estimates these directions using its training donors and cell types. The original representation, three projection ranks and two attenuation strengths share the previously source-selected Gaussian kernel parameters. Shared-response and residual amplitudes use the same source calibration in all variants.
+A representation-ablation experiment attenuates donor-associated directions in untreated expression before computing kernel similarities. Each inner validation fold re-estimates these directions using its training donors and cell types. The original representation, three projection ranks and two attenuation strengths share the source-selected Gaussian kernel parameters. Shared-response and residual amplitudes use the same source calibration in all variants.
 
 | Predictor | CD14 MSE | CD16 MSE |
 |---|---:|---:|
@@ -122,7 +189,7 @@ A controlled follow-up attenuates donor-associated directions in untreated expre
 | Unmodified representation, two amplitudes | 0.011469 | 0.017601 |
 | All donor directions removed | 0.011824 | 0.017914 |
 
-All twelve source selections retain the unmodified representation. This ablation does not support adding donor-direction removal to the model. Donor-associated variation includes both biology and plate effects in this experiment. [All model scores](benchmarks/parse_projection_model_metrics.tsv), [paired intervals](benchmarks/parse_projection_paired_intervals.tsv), [source selections](benchmarks/parse_projection_source_selections.tsv) and [donor results](benchmarks/parse_projection_donor_metrics.tsv) retain the full comparison. The unmodified comparator reproduces the previous two-amplitude model, and the 2,003 evaluation pairs remain unchanged.
+All twelve source selections retain the unmodified representation. This ablation does not support adding donor-direction removal to the model. Donor-associated variation includes both biology and plate effects in this experiment. [All model scores](benchmarks/parse_projection_model_metrics.tsv), [paired intervals](benchmarks/parse_projection_paired_intervals.tsv), [source selections](benchmarks/parse_projection_source_selections.tsv) and [donor results](benchmarks/parse_projection_donor_metrics.tsv) retain the full comparison. The unmodified comparator reproduces the two-amplitude expression-kernel model, and the 2,003 evaluation pairs remain unchanged.
 
 ### Receptor context with matched information
 
@@ -147,7 +214,7 @@ For the source-selected model compared with Gaussian kernel ridge, the paired MS
 
 ### Native perturbation models on a matched cell panel
 
-The completed Parse comparison contains **72/72 native fits**: scGen and scVIDR, twelve donor folds and three initialisations per family. Training inputs and target controls use the same frozen samples of at most 64 cells per donor–population–condition group for every method. The source-selected 2,000-gene axes and all 2,003 eligible target pairs remain fixed. Mean-response truth uses all eligible treated cells. Distribution truth uses the sampled cell panel. These scores are a separate matched-input comparison and must not be compared directly with the full-source Parse scores above.
+The Parse comparison contains 72 fitted native models: scGen and scVIDR, twelve donor folds and three initialisations per family. Training inputs and target controls use the same frozen samples of at most 64 cells per donor–population–condition group for every method. The source-selected 2,000-gene axes and all 2,003 eligible target pairs remain fixed. Mean-response truth uses all eligible treated cells. Distribution truth uses the sampled cell panel. These scores are a separate matched-input comparison and must not be compared directly with the full-source Parse scores above.
 
 | Predictor | CD14 MSE | CD16 MSE | CD14 response Pearson | CD16 response Pearson |
 |---|---:|---:|---:|---:|
@@ -165,19 +232,19 @@ All 72 fits passed training-boundary and checkpoint-replay checks. Mean metrics 
 
 ### Training-budget sensitivity
 
-Six additional fits extend the two native families to a maximum of 300 epochs for three prespecified donors, with one initialisation per family. The saved weights selected within the first 100 epochs exactly match the original fits. Checkpoint selection uses source reconstruction validation throughout. Five fits reach the 300-epoch limit and one stops early, so the experiment does not establish full convergence.
+A six-fit training-budget sensitivity evaluates the two native families with a maximum of 300 epochs for three prespecified donors, with one initialisation per family. The checkpoint weights selected within the first 100 epochs are identical in the two training-budget evaluations. Checkpoint selection uses source reconstruction validation throughout. Five fits reach the 300-epoch limit and one stops early, so the experiment does not establish full convergence.
 
-Source reconstruction loss improves, while mean target-response MSE increases for both families, both populations and both output conventions. For example, native scGen CD14 MSE changes from 0.022143 to 0.023310, and native scVIDR from 0.023405 to 0.024441. This three-donor sensitivity analysis is separate from the twelve-donor, three-initialisation comparison. [Model scores](benchmarks/parse_native_budget_model_metrics.tsv), [donor scores](benchmarks/parse_native_budget_donor_metrics.tsv), [paired budget effects](benchmarks/parse_native_budget_paired_effects.tsv) and [training convergence](benchmarks/parse_native_budget_convergence.tsv) retain every completed fit.
+Source reconstruction loss improves, while mean target-response MSE increases for both families, both populations and both output conventions. For example, native scGen CD14 MSE changes from 0.022143 to 0.023310, and native scVIDR from 0.023405 to 0.024441. This three-donor sensitivity analysis is separate from the twelve-donor, three-initialisation comparison. [Model scores](benchmarks/parse_native_budget_model_metrics.tsv), [donor scores](benchmarks/parse_native_budget_donor_metrics.tsv), [paired budget effects](benchmarks/parse_native_budget_paired_effects.tsv) and [training convergence](benchmarks/parse_native_budget_convergence.tsv) retain every fitted model.
 
 ### Distribution representation sensitivity
 
-Fixed predictions from all 13 original panel variants are evaluated in three 50-dimensional representations: source-control principal components, source-response principal components and a fixed random orthogonal projection. The same twelve donors and 2,003 target pairs are retained in each view. Both learned transforms use source information only.
+Fixed predictions from all 13 panel variants are evaluated in three 50-dimensional representations: source-control principal components, source-response principal components and a fixed random orthogonal projection. The same twelve donors and 2,003 target pairs are retained in each view. Both learned transforms use source information only.
 
 The gene-and-programme procedure has lower squared MMD and energy distance than the native outputs of scGen and scVIDR in both populations across all three views. Comparisons with control-anchored outputs have narrower differences and some intervals include zero. The procedure does not consistently outperform global scaling or the fixed OP3 gate. Absolute distances should be compared within a representation because the three views use different scales. [View-level scores](benchmarks/parse_native_distribution_view_metrics.tsv), [donor scores](benchmarks/parse_native_distribution_view_donor_metrics.tsv) and [paired intervals](benchmarks/parse_native_distribution_view_paired_intervals.tsv) accompany this check.
 
 ### Matched cell-state and donor-reliability comparison
 
-The matched-input analysis now includes **21 variants**, adding cell-state kernels and donor-reliability weighting to the same source cells, genes, target controls and evaluation pairs. Every new variant selects its parameters in source-only validation. Coincident selected variants are retained in the tables and are not independent replications.
+The matched-input analysis includes 21 variants, comparing cell-state kernels and donor-reliability weighting to the same source cells, genes, target controls and evaluation pairs. Every new variant selects its parameters in source-only validation. Coincident selected variants are retained in the tables and are not independent replications.
 
 | Predictor | CD14 MSE | CD16 MSE | CD14 response Pearson | CD16 response Pearson |
 |---|---:|---:|---:|---:|
@@ -185,15 +252,15 @@ The matched-input analysis now includes **21 variants**, adding cell-state kerne
 | Source-selected donor reliability | 0.018915 | 0.023843 | 0.2441 | 0.2477 |
 | Fixed OP3 gene gate | 0.019174 | 0.024235 | 0.2435 | 0.2431 |
 
-Relative to Gaussian kernel ridge, donor reliability changes MSE by −0.44% in CD14 and −0.28% in CD16 monocytes. The paired mean differences are −0.00008371 and −0.00006716. With 100,000 donor resamples, the respective 95% intervals are [−0.000166993, +0.00000008244] and [−0.000158197, +0.000024467]. **Both MSE intervals include zero.** Response Pearson correlation increases by 0.0068 and 0.0062, with paired 95% intervals of [0.0029, 0.0109] and [0.0020, 0.0104]. These are small incremental changes, and native scGen and scVIDR still have higher overall response correlations.
+Relative to Gaussian kernel ridge, donor reliability changes MSE by −0.44% in CD14 and −0.28% in CD16 monocytes. The paired mean differences are −0.00008371 and −0.00006716. With 100,000 donor resamples, the respective 95% intervals are [−0.000166993, +0.00000008244] and [−0.000158197, +0.000024467]. Both MSE intervals include zero. Response Pearson correlation increases by 0.0068 and 0.0062, with paired 95% intervals of [0.0029, 0.0109] and [0.0020, 0.0104]. These are small incremental changes, and native scGen and scVIDR still have higher overall response correlations.
 
-The paired tables also include pathway error and cytokine-centred response accuracy. Centred correlation is defined for twelve CD14 donors and eleven CD16 donors; the one-condition CD16 donor remains in all uncentred metrics. Other paired intervals use 5,000 donor resamples. All intervals describe donor variability conditional on fitted predictors with overlapping source folds. This remains model development within the existing Parse study, not a new independent cohort. Additional external-cohort acquisition has not yet produced a validation result.
+The paired tables also include pathway error and cytokine-centred response accuracy. Centred correlation is defined for twelve CD14 donors and eleven CD16 donors; the one-condition CD16 donor remains in all uncentred metrics. Other paired intervals use 5,000 donor resamples. All intervals describe donor variability conditional on fitted predictors with overlapping source folds. This remains model development within the existing Parse study, not a new independent cohort. The independent mouse cytokine study is described in the [external evaluation guide](external_validation.md).
 
-[All 21 variants](benchmarks/parse_matched_context_model_metrics.tsv), [donor scores](benchmarks/parse_matched_context_donor_metrics.tsv), [publication paired intervals, including the high-precision MSE check](benchmarks/parse_matched_context_paired_intervals.tsv) and [source selections](benchmarks/parse_matched_context_source_selections.tsv) provide the completed evidence. `NA` denotes undefined or inapplicable values in the new result tables. These experimental variants do not change the packaged model or software API.
+[All 21 variants](benchmarks/parse_matched_context_model_metrics.tsv), [donor scores](benchmarks/parse_matched_context_donor_metrics.tsv), [publication paired intervals, including the high-precision MSE check](benchmarks/parse_matched_context_paired_intervals.tsv) and [source selections](benchmarks/parse_matched_context_source_selections.tsv) provide the evaluation results. `NA` denotes undefined or inapplicable values in the result tables. These experimental variants do not change the packaged model or software API.
 
 ### Source-context selection of training duration
 
-A separate completed experiment tests training-budget selection on three prespecified source donor–population pairs. It contains six fits and 48 checkpoint snapshots. Each fit excludes treated cells from either held-out source axis. All original monocytes and the outer evaluation donor are absent. Each source pair contains 87 cytokines. The criterion averages response MSE relative to the unchanged-control predictor equally across the three pairs.
+A source-context experiment tests training-budget selection on three prespecified source donor–population pairs. It contains six fits and 48 checkpoint snapshots. Each fit excludes treated cells from either held-out source axis. All original monocytes and the outer evaluation donor are absent. Each source pair contains 87 cytokines. The criterion averages response MSE relative to the unchanged-control predictor equally across the three pairs.
 
 | Model | Output | Selected snapshot epoch | Source MSE | Source MSE under the 100-epoch reconstruction rule | Reduction |
 |---|---|---:|---:|---:|---:|
@@ -204,9 +271,9 @@ A separate completed experiment tests training-budget selection on three prespec
 
 Reconstruction favours checkpoints at epochs 289–300, whereas response-transfer validation selects 50 epochs for native scGen, 150 for native scVIDR and 25 for both anchored outputs. The anchored choice is the earliest tested budget, rather than an unconstrained optimum. These are source-selection scores from the same environments used for tuning. They do not revise the twelve-donor monocyte benchmark or establish an unbiased gain in target performance.
 
-The frozen Donor 1 confirmation is complete, with all six original 100-epoch weight checks reproduced exactly. Source-selected durations increase native-output MSE in all four model/population settings. The 25-epoch anchored outputs reduce MSE by 1.85–2.11%, while response Pearson decreases. This is one biological donor with three training repetitions per model. [Frozen-budget scores](benchmarks/parse_frozen_budget_model_metrics.tsv) and [paired duration comparisons](benchmarks/parse_frozen_budget_paired_budget_comparisons.tsv) retain all outcomes. Extending the selection procedure to other donor holdouts requires new nested source validation.
+The Donor 1 training-duration comparison uses six 100-epoch checkpoints whose weights match the reference benchmark exactly. Source-selected durations increase native-output MSE in all four model/population settings. The 25-epoch anchored outputs reduce MSE by 1.85–2.11%, while response Pearson decreases. This is one biological donor with three training repetitions per model. [Frozen-budget scores](benchmarks/parse_frozen_budget_model_metrics.tsv) and [paired duration comparisons](benchmarks/parse_frozen_budget_paired_budget_comparisons.tsv) retain all outcomes. Extending the selection procedure to other donor holdouts requires new nested source validation.
 
-[All source curves](benchmarks/parse_source_validation_curves.tsv), [selected budgets](benchmarks/parse_source_budget_selections.tsv), [source score comparisons](benchmarks/parse_source_selection_comparisons.tsv) and [selection sensitivity to leaving out one source pair](benchmarks/parse_source_selection_stability.tsv) provide the completed diagnostic evidence.
+[All source curves](benchmarks/parse_source_validation_curves.tsv), [selected budgets](benchmarks/parse_source_budget_selections.tsv), [source score comparisons](benchmarks/parse_source_selection_comparisons.tsv) and [selection sensitivity to leaving out one source pair](benchmarks/parse_source_selection_stability.tsv) provide the diagnostic results.
 
 ### Pilot-stimulation calibration
 
@@ -254,17 +321,17 @@ A separate Parse technical sensitivity splits the fixed target cell panels into 
 
 The control-noise model improves independent-reference MSE over the prior by 3.11% and 2.41%. Its Hallmark advantage over KRR is uncertain. Source validation selects zero shared-residual correction in every independent-reference selection. Holding shared-regime KRR predictions and cell inputs fixed, changing only the evaluation reference increases MSE by 0.026647 and 0.025782. Stimulus-centred metrics remain unchanged under this reference change. This isolates sensitivity to the measured control. The split-cell scores use smaller target panels than the original benchmark and are not pooled with those scores.
 
-The noise search includes zero noise and the full KRR penalty grid, preserving KRR as an exact special case. Source selection still chooses positive noise, so repairing the grid nesting does not itself explain a performance change. [All model scores](benchmarks/parse_control_split_model_metrics.tsv), [donor values](benchmarks/parse_control_split_donor_metrics.tsv), [paired intervals](benchmarks/parse_control_split_paired_model_intervals.tsv) and [fixed-prediction reference comparisons](benchmarks/parse_control_split_identical_prediction_control_reuse.tsv) provide the complete sensitivity results.
+The noise search includes zero noise and the full KRR penalty grid, preserving KRR as an exact special case. Source selection chooses positive noise while retaining the zero-noise KRR solution as an eligible candidate. [All model scores](benchmarks/parse_control_split_model_metrics.tsv), [donor values](benchmarks/parse_control_split_donor_metrics.tsv), [paired intervals](benchmarks/parse_control_split_paired_model_intervals.tsv) and [fixed-prediction reference comparisons](benchmarks/parse_control_split_identical_prediction_control_reuse.tsv) provide the complete sensitivity results.
 
-The same frozen technical-sensitivity design is now complete in the independent Wood study. With independent query controls, covariance KRR gives MSE 0.072615 in batch A and 0.050590 in batch B, against priors of 0.092876 and 0.051450. The control-noise model gives 0.073580 in batch A. In batch B, source validation selects zero noise contribution, making its predictions identical to KRR. Thus, the additional noise-model gain in Parse does not replicate here. With shared-regime KRR predictions fixed, changing only the query control increases MSE by 0.010916 and 0.016605. This confirms control-reference sensitivity across studies. [Wood split-control scores](benchmarks/wood_control_split_model_metrics.tsv), [donor scores](benchmarks/wood_control_split_donor_metrics.tsv), [paired intervals](benchmarks/wood_control_split_paired_model_intervals.tsv) and [fixed-prediction reference comparisons](benchmarks/wood_control_split_identical_prediction_control_reuse.tsv) retain all outcomes. This technical split is separate from the original full-panel Wood validation above.
+The independent Wood study uses the same fixed technical-sensitivity design. With independent query controls, covariance KRR gives MSE 0.072615 in batch A and 0.050590 in batch B, against priors of 0.092876 and 0.051450. The control-noise model gives 0.073580 in batch A. In batch B, source validation selects zero noise contribution, making its predictions identical to KRR. Thus, the additional noise-model gain in Parse does not replicate here. With shared-regime KRR predictions fixed, changing only the query control increases MSE by 0.010916 and 0.016605. This confirms control-reference sensitivity across studies. [Wood split-control scores](benchmarks/wood_control_split_model_metrics.tsv), [donor scores](benchmarks/wood_control_split_donor_metrics.tsv), [paired intervals](benchmarks/wood_control_split_paired_model_intervals.tsv) and [fixed-prediction reference comparisons](benchmarks/wood_control_split_identical_prediction_control_reuse.tsv) retain all outcomes. This technical split is separate from the original full-panel Wood validation above.
 
 ### Numerically stable native-model comparisons
 
-The centred scVIDR regression has at most six source directions in Parse and three in Kang. A fixed double-precision minimum-norm solver removes amplification of rounding errors in nearly zero singular directions. All 36 Parse and 24 Kang checkpoints are retained without retraining. Original outputs remain separately available.
+The centred scVIDR regression has at most six source directions in Parse and three in Kang. A fixed double-precision minimum-norm solver removes amplification of rounding errors in nearly zero singular directions. Both regression implementations use the same 36 Parse and 24 Kang fitted checkpoints. Their outputs are reported separately.
 
-Stable scVIDR native MSE is 0.024118/0.027611 in Parse CD14/CD16 monocytes and 0.053393/0.038559 in Kang CD14/FCGR3A monocytes. The main rankings are unchanged. In Kang FCGR3A cells, scVIDR retains lower mean-response MSE than the fixed refined reliability model. These corrections strengthen numerical reproducibility and are not model-architecture contributions.
+Stable scVIDR native MSE is 0.024118/0.027611 in Parse CD14/CD16 monocytes and 0.053393/0.038559 in Kang CD14/FCGR3A monocytes. In Kang FCGR3A cells, scVIDR retains lower mean-response MSE than the fixed refined reliability model. The regression comparison isolates numerical-solver sensitivity while keeping the learned neural representations fixed.
 
-[Parse stable scores](benchmarks/parse_stable_scvidr_model_metrics.tsv), [Parse paired comparisons](benchmarks/parse_stable_scvidr_paired_comparisons.tsv), [Kang stable scores](benchmarks/kang_stable_scvidr_model_metrics.tsv) and [Kang paired comparisons](benchmarks/kang_stable_scvidr_paired_comparisons.tsv) report the corrected variants. Original-regression and stable-regression results remain separately identified. Experimental benchmark extensions do not change the stable packaged prediction API.
+[Parse stable scores](benchmarks/parse_stable_scvidr_model_metrics.tsv), [Parse paired comparisons](benchmarks/parse_stable_scvidr_paired_comparisons.tsv), [Kang stable scores](benchmarks/kang_stable_scvidr_model_metrics.tsv) and [Kang paired comparisons](benchmarks/kang_stable_scvidr_paired_comparisons.tsv) report the double-precision solver variants. Package-default and minimum-norm regression results remain separately identified. Experimental benchmark extensions do not change the stable packaged prediction API.
 
 ## Data verification
 
@@ -296,7 +363,7 @@ The task is a development evaluation on a public study. It does not establish cl
 
 ## Native pretrained generation in the Wood study
 
-We next evaluated the pretrained Stack-Large-Aligned model in the independent Wood study. This comparison supplied no treated target cells. It included 65 eligible stimulus responses across twelve held-out donors, with six donors in each of two stimulation batches. Stack and the classical models used a common 14,748-gene count denominator and the same source-selected evaluation genes. These results form a separate comparison from the full-library pilot experiment.
+The independent Wood study evaluates the pretrained Stack-Large-Aligned model. This comparison supplied no treated target cells. It included 65 eligible stimulus responses across twelve held-out donors, with six donors in each of two stimulation batches. Stack and the classical models used a common 14,748-gene count denominator and the same source-selected evaluation genes. These results form a separate comparison from the full-library pilot experiment.
 
 In batch A, native Stack gave MSE 0.098221, compared with 0.113308 for a source-calibrated mean response. Subtracting Stack's generated control and adding the observed target control reduced MSE to 0.089598. In batch B, native MSE was 0.101268 and control anchoring reduced it to 0.052368, close to the classical linear model's 0.051891. Native Stack had higher response correlations than the classical models in both batches, reaching 0.560 and 0.374. Its stimulus-centred correlations were also higher, indicating improved agreement with differences between stimuli. Complete errors, correlations, pathway metrics and paired donor intervals are reported in Supplementary Information. These results distinguish useful pretrained response information from errors in reconstructing the target's untreated background.
 
@@ -330,14 +397,22 @@ Six biological donors contribute equally.
 
 The [official Stack model](https://huggingface.co/arcinstitute/Stack-Large-Aligned) uses pretrained weights and its native masked-denoising generator. Each held-out donor receives source lymphoid context from five other donors in the same batch. Stimulated target monocytes and stimulated cells from the target donor are excluded. The permitted panel and output gene axis are shared with classical models. Native attention samples a subset of the available context, while classical methods use panel means. Thirty-six generations comprise three technical draws for each of twelve biological donors. Draw-level metrics are averaged within donors. They are not scored as an ensemble mean.
 
-The common-vocabulary denominator contains 14,748 genes, and 2,000 genes are selected from source controls within each fold. These scores must be compared within this table. The earlier Wood pilot analysis uses a different expression denominator and target-information budget. Parse was part of Stack's alignment data. Wood overlap with pretraining is unknown. The comparison assesses the released pretrained model under this explicit input design.
+The common-vocabulary denominator contains 14,748 genes, and 2,000 genes are selected from source controls within each fold. These scores must be compared within this table. The Wood pilot analysis uses a different expression denominator and target-information budget. Parse was part of Stack's alignment data. Wood overlap with pretraining is unknown. The comparison assesses the released pretrained model under this explicit input design.
 
 [Complete scores](benchmarks/wood_stack_model_metrics.tsv), [donor scores](benchmarks/wood_stack_donor_metrics.tsv), [condition scores](benchmarks/wood_stack_condition_metrics.tsv) and [exact paired-donor intervals](benchmarks/wood_stack_paired_donor_intervals.tsv) provide all seven evaluation metrics. Independent recomputation from raw counts reproduces reported metrics to numerical precision.
 
 ## Scope of baseline comparisons
 
-The [comparison-scope table](data/baseline_comparison_scope.tsv) records 23 model/task comparisons. It distinguishes common input and scoring conditions from model-specific optimisation and adaptation. Source-selected classical models, pretrained representation adapters, native cell-level models and task-adapted neural models answer different questions. The State dose comparison trains its architecture from scratch. It is not a pretrained-State result. Reconstruction-selected and source-response-selected native checkpoints are reported separately. Folds share source training donors, and technical repeats do not increase the biological sample size.
+The [comparison-scope table](data/baseline_comparison_scope.tsv) records 28 model/task comparisons. It distinguishes common input and scoring conditions from model-specific optimisation and adaptation. Source-selected classical models, pretrained representation adapters, native cell-level models and task-adapted neural models answer different questions. The State dose comparison trains its architecture from scratch. It is not a pretrained-State result. Reconstruction-selected and source-response-selected native checkpoints are reported separately. Folds share source training donors, and technical repeats do not increase the biological sample size.
 
 ## Relative error with a shared untreated reference
 
 In the matched Parse cytokine benchmark, scPerturbMix has 2.0–11.3% lower mean squared prediction error than control-anchored scGen and numerically stable control-anchored scVIDR across CD14 and CD16 monocytes. The range covers four aggregate comparisons, with twelve donors in each population. Both CD14 paired intervals exclude zero; both CD16 intervals include zero. [Relative errors and paired donor intervals](benchmarks/matched_immune_relative_errors.tsv) report the four comparisons. Response-correlation rankings are reported separately above.
+
+## Mechanism and classical-estimator comparisons
+
+The [mechanism guide](mechanism_evidence.md) explains source-reselected component ablations, learned-basis controls and the cross-context basis variant. Complete classical estimators appear alongside pretrained models in the [unified task tables](benchmark_comparison.md).
+
+## Independent mouse cytokine study
+
+The [Immune Dictionary evaluation](external_validation.md) adds 438 eligible population–cytokine pairs from an independent in vivo study. The fitting rule is refitted to mouse source populations. Eight models, all six eligible target populations, published-signature endpoints and paired intervals are provided together.

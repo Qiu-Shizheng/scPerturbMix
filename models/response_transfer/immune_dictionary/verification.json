@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "evaluated_conditions": 438,
+  "registered_cytokines": 83,
+  "checkpoint_replay_max_absolute_error": {
+    "Langerhans_predictions": 4.440892098500626e-16,
+    "Macrophage_predictions": 4.440892098500626e-16,
+    "MigDC_predictions": 8.881784197001252e-16,
+    "cDC1_predictions": 4.440892098500626e-16,
+    "cDC2_predictions": 4.440892098500626e-16,
+    "pDC_predictions": 8.881784197001252e-16
+  },
+  "dose_units_preserved": "micrograms per mouse"
+}

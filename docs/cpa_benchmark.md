@@ -6,7 +6,7 @@ CPA appears with scGen, scVIDR and classical methods in the [unified task compar
 
 ## Software and result files
 
-This release provides runnable scPerturbMix prediction and fitting tools, five fitted drug-response or expression checkpoints, and the CPA benchmark tables described below. The CPA component is a result-table release with a task specification. Reproducing those tables requires separate study-specific training and scoring scripts around the official CPA package and the original Kang data.
+This release provides runnable scPerturbMix prediction and fitting tools, six fitted drug-response, cytokine-response or expression checkpoints, and the CPA benchmark tables described below. The CPA component is a result-table release with a task specification. Reproducing those tables requires separate study-specific training and scoring scripts around the official CPA package and the original Kang data.
 
 For CPA installation, follow the [official repository instructions](https://github.com/theislab/cpa). This evaluation uses CPA-tools 0.8.8. Its training runtime adapts the older Lightning epoch-end interface while retaining CPA's model, losses and optimization updates. The source-cell split, gene panels, preprocessing, checkpoint-selection rules and scoring aggregation must follow the specification below to reproduce the comparison.
 

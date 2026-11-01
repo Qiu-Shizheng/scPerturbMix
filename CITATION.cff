@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If scPerturbMix contributes to your work, please cite this software and the original data studies."
 title: "scPerturbMix: single-cell perturbation response modelling"
-version: 0.4.0
-date-released: 2026-10-30
+version: 0.5.0
+date-released: 2026-11-01
 repository-code: "https://github.com/Qiu-Shizheng/scPerturbMix"
 license: MIT
 authors:

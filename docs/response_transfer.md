@@ -16,6 +16,8 @@ Use at least three source contexts. The model fits shared effects on all supplie
 
 **Cellarity:** use the released 13,290-gene processed expression scale. The fitted study matches each treated profile to the same cell type and experimental library before averaging response profiles. The public release reuses row labels, so identify samples by cell type, library and well.
 
+**Immune Dictionary:** normalise each cell across all 31,053 measured genes to 10,000 counts and apply log1p before extracting the 2,000 model genes. Average cells within mouse and then mice equally. The condition catalogue retains 5 micrograms per mouse and four hours. [Named-condition inputs](#named-cytokine-conditions) describe matched reference matrices.
+
 A new dataset with matching gene names may have a different measurement scale. Fit a model with compatible source data when the transformation or gene panel differs.
 
 ## Population comparison
@@ -57,3 +59,40 @@ Use `models/response_transfer/op3_refined` as the model directory for the suppli
 - `../verification.json`: numerical replay checks for the frozen evaluation groups.
 
 The core glioblastoma expression model uses a separate predictor and released dose-level codes. Its dose codes must not be substituted for the physical concentrations used by these response-transfer models.
+
+## Named cytokine conditions
+
+Version 0.5.0 provides `predict_conditions` for registered conditions with their original physical units. The mouse checkpoint contains 83 cytokines at 5 micrograms per mouse, measured four hours after administration. These are catalogue conditions at a fixed dose and time. The existing `predict_response` interface continues to accept drug concentrations in micromolar.
+
+The CLI selects the input schema from `model.json`. For this checkpoint, the condition CSV is:
+
+```csv
+condition_id
+41BBL
+APRIL
+```
+
+A complete Python example reads the packaged example control:
+
+```python
+import csv
+from pathlib import Path
+from scperturbmix import predict_conditions
+
+model_dir = Path("models/response_transfer/immune_dictionary")
+with (model_dir / "example_control.csv").open() as handle:
+    rows = list(csv.DictReader(handle))
+
+prediction, effect, genes = predict_conditions(
+    control=[float(row["expression"]) for row in rows],
+    gene_ids=[row["gene_id"] for row in rows],
+    condition_ids=["41BBL", "APRIL"],
+    model_dir=model_dir,
+)
+```
+
+`prediction` and `effect` have shape requested conditions × 2,000 genes. `genes` gives their model order. A control vector of length 2,000 is shared across the requested conditions. A control matrix with shape requested conditions × 2,000 supplies a separate matched reference for each condition. Use the matrix form when experimental batches require different control profiles. Condition identifiers match the catalogue exactly, including case. The control must contain exactly the model's unique gene identities.
+
+Prepare an untreated target control using the same expression scale as the fitted model. For each cell, sum counts across the full 31,053-gene author count axis, divide each count by that total, multiply by 10,000 and apply log1p. Select the 2,000 model genes after normalisation. Average cells within each mouse, then average mouse profiles with equal weight. For condition-specific matching, form each reference from its corresponding PBS control mice. The experimental dose stays in micrograms per mouse. It is a mass per animal, whereas micromolar is a concentration.
+
+The supplied example control illustrates formatting. The [external evaluation guide](external_validation.md) describes the actual target populations, control matching and 438 evaluated response conditions. The 83-condition catalogue includes one stimulus without an eligible external target under the fixed support criteria. The checkpoint was fitted using six mouse lymphoid populations.

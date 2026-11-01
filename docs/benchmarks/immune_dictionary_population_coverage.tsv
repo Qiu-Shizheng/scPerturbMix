@@ -1,0 +1,15 @@
+population_id	population	role	input_cells	PBS_cells	eligible_cytokines	scope
+B_cell	B cells	Source	16892	857	83	Author-provided population analysis object
+T_cell_CD4	CD4 T cells	Source	10000	465	83	Author-provided population analysis object
+T_cell_CD8	CD8 T cells	Source	10000	460	83	Author-provided population analysis object
+T_cell_gd	γδ T cells	Source	10320	509	83	Author-provided population analysis object
+Treg	Regulatory T cells	Source	10000	472	83	Author-provided population analysis object
+NK_cell	Natural killer cells	Source	13779	594	83	Author-provided population analysis object
+Monocyte	Monocytes	Target	2591	37	0	Author-provided population analysis object
+Macrophage	Macrophages	Target	3261	103	31	Author-provided population analysis object
+cDC1	CD103-positive dendritic cells	Target	7416	376	82	Author-provided population analysis object
+cDC2	cDC2/CD209-positive dendritic cells	Target	7244	384	82	Author-provided population analysis object
+MigDC	Migratory dendritic cells	Target	8852	337	81	Author-provided population analysis object
+Langerhans	Langerhans cells	Target	7648	291	82	Author-provided population analysis object
+pDC	Plasmacytoid dendritic cells	Target	8112	325	80	Author-provided population analysis object
+Neutrophil	Neutrophils	Target	1167	28	0	Author-provided population analysis object

@@ -2,9 +2,9 @@
 
 scPerturbMix studies a practical question: can responses measured in some cell types, donors or treatment conditions help predict a response that has not yet been measured? Its output is a gene-expression change for a cell population. The evaluated interventions include drugs, immune signals and gene repression.
 
-The evaluation contains **11 experiments from 10 original studies**. Ten experiments are derived from single-cell RNA measurements. The diffuse midline glioma screen uses bulk RNA measurements from whole wells. The two sci-Plex experiments share one original publication. Multiple prediction tasks, cell populations or pilot budgets from the same study do not create additional independent datasets.
+The evaluation contains **12 experiments from 11 original studies**. Eleven experiments are derived from single-cell RNA measurements. The diffuse midline glioma screen uses bulk RNA measurements from whole wells. The two sci-Plex experiments share one original publication. Multiple prediction tasks, cell populations or pilot budgets from the same study do not create additional independent datasets.
 
-The [cohort table](data/cohort_roles_20261028.tsv) provides an English, machine-readable record of all 11 experiments, their source publications, data transformations and training roles.
+The [cohort table](data/cohort_roles.tsv) provides an English, machine-readable record of all 12 experiments, their source publications, data transformations and training roles.
 
 ## What the model learns
 
@@ -19,7 +19,7 @@ The software also includes an optional neural reference implementation. The main
 | Task | Biological question | Data |
 |---|---|---|
 | Drug responses across cell contexts | Can responses in one group of cells predict how another cell population responds to a known drug? | OP3 immune-cell drug screen, Cellarity cultured-to-primary screen |
-| Immune responses across donors and cell types | Can immune responses from other donors and cell types predict the response of a new donor's monocytes? | Kang interferon-beta, Parse cytokines, Wood stimulation |
+| Immune responses across donors and cell types | Can responses in measured immune cells predict stimulation responses in another donor or cell population? | Kang interferon-beta, Parse cytokines, Wood stimulation and the mouse Immune Dictionary |
 | Dose response | Can measured doses predict responses at an unmeasured concentration? | sci-Plex2, sci-Plex3 |
 | Genetic perturbations across environments | How does the effect of reducing a gene's activity transfer across a cell background, drug environment or donor? | Glioblastoma kinome screen, PerturbFate, primary CD4 T-cell panel |
 | Prediction after a small pilot experiment | How much do a few measured target responses help predict the remaining stimuli? | Parse and Wood, reusing their donors and experiments |
@@ -45,6 +45,7 @@ Untreated target cells are usually available. In a zero-support task, no treated
 | PerturbFate | 80 target genes | 26 target genes | Drug-treated responses of 27 held-out genes, with their vehicle responses available as inputs |
 | Primary CD4 T-cell panel | Two donors, each with resting and two activated states | A third donor | A fourth donor in the same three states |
 | Diffuse midline glioma PLATE-seq | First DIPG6 plate | Second DIPG6 plate | Two SF8628 plates |
+| Immune Dictionary mouse cytokines | Six lymphoid populations | Leave one source population out | Six macrophage or dendritic-cell populations, covering 438 conditions. Source and target cells may share mice. |
 
 ## What each dataset represents
 
@@ -70,6 +71,8 @@ Untreated target cells are usually available. In a zero-support task, no treated
 
 **Diffuse midline glioma: auxiliary bulk drug screening.** This brain-tumour screen measures whole-well RNA after 372 drug treatments. It includes two plates each from DIPG6 and SF8628 cells. It uses bulk PLATE-seq, so its evidence is listed separately from the single-cell experiments. Doses differ between cell lines for 114 drugs. The evaluated expression endpoint has limited replicate drug-response agreement and differs from the original study's regulatory-protein activity endpoint. [Original study](https://doi.org/10.1038/s41588-026-02550-w).
 
+**Immune Dictionary: cytokine responses in mouse lymph nodes.** Cytokines are immune-signalling proteins. The author-provided population objects contain 117,282 cells. Six lymphoid source populations supply 83 eligible stimuli, and six macrophage or dendritic-cell targets supply 438 held-out conditions covering 82 stimuli. The fixed modelling rule is fitted to mouse source data. The objects include author-selected analysis subsets and refined cell annotations. [Study](https://doi.org/10.1038/s41586-023-06816-9), [data portal](https://www.immune-dictionary.org/download/) and [evaluation guide](external_validation.md).
+
 ## Interpreting external validation
 
 | Evaluation setting | What stays fixed | What is fitted in the new study |
@@ -78,13 +81,13 @@ Untreated target cells are usually available. In a zero-support task, no treated
 | Fixed-rule transfer | An existing rule or candidate parameter grid | Source response coefficients or other permitted fitted weights |
 | Entirely frozen-model transfer | All fitted model weights and preprocessing rules | Nothing |
 
-The OP3-to-Kang and Parse-to-Wood analyses transfer fixed rules while fitting permitted source information in the new study. The eleven-experiment evaluation covers several study-specific fitted models. It should be read according to the setting recorded for each task. Development targets that have already informed architecture work are identified in the cohort table.
+The OP3-to-Kang and Parse-to-Wood analyses transfer fixed rules while fitting permitted source information in the new study. The twelve-experiment evaluation covers several study-specific fitted models. It should be read according to the setting recorded for each task. Development targets that have already informed architecture work are identified in the cohort table.
 
-Immune-stimulation datasets measure changes caused by immune signals. They do not contain clinical checkpoint-inhibitor response, patient survival or other treatment-outcome labels. Those outcomes would require independently labelled patient cohorts and a corresponding prediction endpoint.
+The immune-stimulation endpoints are gene-expression responses to immune signals. The mouse Immune Dictionary adds an in vivo experimental system with fitting restricted to its lymphoid source populations.
 
 ## Expression scales and quality
 
-The expression target is defined separately for each dataset. Kang, Parse and Wood use per-cell log1p counts per 10,000, calculated from complete measured libraries, followed by a condition mean. Several other datasets use log1p counts per million after summing cells within experimental profiles. Cellarity and sci-Plex3 retain their published processed scales. OP3 uses its released 5,317-gene denominator. These transformations produce different numerical endpoints, so MSE values from different datasets should not be compared directly.
+The expression target is defined separately for each dataset. Kang, Parse, Wood and the Immune Dictionary use per-cell log1p counts per 10,000, calculated from complete measured libraries, followed by a condition mean. Several other datasets use log1p counts per million after summing cells within experimental profiles. Cellarity and sci-Plex3 retain their published processed scales. OP3 uses its released 5,317-gene denominator. These transformations produce different numerical endpoints, so MSE values from different datasets should not be compared directly.
 
 Comparisons within a task use the same target conditions, gene set, normalisation, controls and available target information. Feature provenance is also recorded. The sci-Plex3 panel comes from the published processed feature set. The glioblastoma panel excludes U87MG during feature selection but can include the T98G validation background. Source-selected panels are identified separately in the cohort table.
 
