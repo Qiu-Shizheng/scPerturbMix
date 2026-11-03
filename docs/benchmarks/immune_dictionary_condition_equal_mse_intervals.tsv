@@ -1,0 +1,15 @@
+Candidate	Comparator	MSE reduction (%)	95% interval (%)
+scPerturbMix	Untreated reference	3.99	2.46 to 5.66
+scPerturbMix	Source mean	11.75	10.42 to 13.13
+scPerturbMix	Global scaling	0.13	-1.34 to 1.49
+scPerturbMix	Condition gate	0.75	0.46 to 1.06
+scPerturbMix	Gene gate	0.45	0.14 to 0.78
+scPerturbMix	Low rank	-0.29	-1.57 to 0.80
+scPerturbMix	Cross-source basis	0.05	-0.19 to 0.29
+Cross-source basis	Untreated reference	3.94	2.42 to 5.58
+Cross-source basis	Source mean	11.70	10.34 to 13.09
+Cross-source basis	Global scaling	0.08	-1.40 to 1.39
+Cross-source basis	Condition gate	0.70	0.49 to 0.92
+Cross-source basis	Gene gate	0.39	0.22 to 0.58
+Cross-source basis	Low rank	-0.34	-1.65 to 0.74
+Cross-source basis	scPerturbMix	-0.05	-0.29 to 0.19

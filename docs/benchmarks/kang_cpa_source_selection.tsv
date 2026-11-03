@@ -1,0 +1,49 @@
+Model	Donor	Initialization	Adversarial loss coefficient	Gradient-penalty coefficient	Selected epoch	Completed epochs	Source validation CPA metric	Selected training phase
+CPA	101	17	20	5	20	80	3.059488534927368	Before adversarial training
+CPA	101	29	20	5	25	80	3.127280235290528	Before adversarial training
+CPA	101	43	20	5	20	80	3.033869743347168	Before adversarial training
+CPA	107	17	20	5	20	80	3.233019590377808	Before adversarial training
+CPA	107	29	20	5	15	80	3.315267562866211	Before adversarial training
+CPA	107	43	20	5	20	80	3.20261549949646	Before adversarial training
+CPA	1015	17	20	5	20	80	3.511063814163208	Before adversarial training
+CPA	1015	29	20	5	20	80	3.522442102432251	Before adversarial training
+CPA	1015	43	20	5	20	80	3.4275639057159424	Before adversarial training
+CPA	1016	17	20	5	25	80	3.326268434524536	Before adversarial training
+CPA	1016	29	20	5	20	80	3.3983349800109863	Before adversarial training
+CPA	1016	43	20	5	20	80	3.333116292953491	Before adversarial training
+CPA	1039	17	20	5	20	80	3.341613531112671	Before adversarial training
+CPA	1039	29	20	5	20	80	3.323671817779541	Before adversarial training
+CPA	1039	43	20	5	20	80	3.2670719623565674	Before adversarial training
+CPA	1244	17	20	5	20	80	3.6171715259552	Before adversarial training
+CPA	1244	29	20	5	25	80	3.636399984359741	Before adversarial training
+CPA	1244	43	20	5	20	80	3.537686586380005	Before adversarial training
+CPA	1256	17	20	5	20	80	3.502127170562744	Before adversarial training
+CPA	1256	29	20	5	30	80	3.4501311779022217	Before adversarial training
+CPA	1256	43	20	5	25	80	3.5098133087158203	Before adversarial training
+CPA	1488	17	20	5	25	80	3.5704946517944336	Before adversarial training
+CPA	1488	29	20	5	25	80	3.575620412826538	Before adversarial training
+CPA	1488	43	20	5	25	80	3.5141568183898926	Before adversarial training
+CPA (post-warmup)	101	17	1	1	90	115	-11.968379020690918	Full adversarial weight
+CPA (post-warmup)	101	29	1	1	85	110	-17.222492218017578	Full adversarial weight
+CPA (post-warmup)	101	43	1	1	85	110	-8.64377498626709	Full adversarial weight
+CPA (post-warmup)	107	17	1	1	85	110	-56.12898635864258	Full adversarial weight
+CPA (post-warmup)	107	29	1	1	90	115	-75.141845703125	Full adversarial weight
+CPA (post-warmup)	107	43	1	1	95	120	-28.176549911499023	Full adversarial weight
+CPA (post-warmup)	1015	17	1	1	100	125	-46.56543350219727	Full adversarial weight
+CPA (post-warmup)	1015	29	1	1	95	120	-62.77761459350586	Full adversarial weight
+CPA (post-warmup)	1015	43	1	1	85	110	-61.091609954833984	Full adversarial weight
+CPA (post-warmup)	1016	17	1	1	85	110	-9.002714157104492	Full adversarial weight
+CPA (post-warmup)	1016	29	1	1	85	110	-10.552461624145508	Full adversarial weight
+CPA (post-warmup)	1016	43	1	1	100	125	-18.26051521301269	Full adversarial weight
+CPA (post-warmup)	1039	17	1	1	90	115	-16.075767517089844	Full adversarial weight
+CPA (post-warmup)	1039	29	1	1	85	110	-15.181595802307127	Full adversarial weight
+CPA (post-warmup)	1039	43	1	1	95	120	-9.389348983764648	Full adversarial weight
+CPA (post-warmup)	1244	17	1	1	85	110	-11.348153114318848	Full adversarial weight
+CPA (post-warmup)	1244	29	1	1	125	150	-126.9056396484375	Full adversarial weight
+CPA (post-warmup)	1244	43	1	1	85	110	-24.30085563659668	Full adversarial weight
+CPA (post-warmup)	1256	17	1	1	95	120	-38.84999084472656	Full adversarial weight
+CPA (post-warmup)	1256	29	1	1	85	110	-25.00762176513672	Full adversarial weight
+CPA (post-warmup)	1256	43	1	1	85	110	-18.140600204467773	Full adversarial weight
+CPA (post-warmup)	1488	17	1	1	85	110	-36.39865493774414	Full adversarial weight
+CPA (post-warmup)	1488	29	1	1	85	110	-4.107545375823975	Full adversarial weight
+CPA (post-warmup)	1488	43	1	1	85	110	-7.652112483978271	Full adversarial weight

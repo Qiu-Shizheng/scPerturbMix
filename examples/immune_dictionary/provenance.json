@@ -1,0 +1,36 @@
+{
+  "title": "Dictionary of immune responses to cytokines at single-cell resolution",
+  "authors": "Cui et al.",
+  "doi": "10.1038/s41586-023-06816-9",
+  "publication": "Nature 625, 377–384 (2024), published online 6 December 2023",
+  "article": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10781646/",
+  "data_portal": "https://www.immune-dictionary.org/download/",
+  "geo_accession": "GSE202186",
+  "gene_count": 2000,
+  "population_condition_pairs": 438,
+  "cytokines": 82,
+  "populations": {
+    "Langerhans": 82,
+    "Macrophage": 31,
+    "MigDC": 81,
+    "cDC1": 82,
+    "cDC2": 82,
+    "pDC": 80
+  },
+  "dose": "5 micrograms per mouse",
+  "exposure": "4 hours",
+  "derivation": "Cell-level log1p counts per 10,000 across the complete 31,053-gene count matrix. Average cells within each mouse, then mice equally. Select the 2,000 genes defined by training control cells. Keep matched PBS controls for each population and cytokine.",
+  "eligibility": "At least two treated and two matched PBS mice, at least 20 cells per treatment/control group, and at least five cells per mouse–population profile.",
+  "training_populations": [
+    "B cells",
+    "CD4 T cells",
+    "CD8 T cells",
+    "gamma-delta T cells",
+    "regulatory T cells",
+    "natural killer cells"
+  ],
+  "test_design": "Stimulated profiles of the six evaluation populations are held out from model fitting. Their PBS profiles are prediction inputs. Populations may share mice with the training populations.",
+  "file_contents": "Observed treated and matched PBS mean profiles, population and cytokine labels, and the model gene axis. No predicted profiles are included in observed_profiles.npz.",
+  "attribution": "Derived numerical expression summaries from Cui et al. and their public Immune Dictionary data. The original article is CC BY 4.0. Original data terms apply. scPerturbMix provides the aggregation and prediction example.",
+  "article_licence": "https://creativecommons.org/licenses/by/4.0/"
+}

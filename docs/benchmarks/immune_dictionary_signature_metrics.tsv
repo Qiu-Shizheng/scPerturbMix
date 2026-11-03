@@ -1,0 +1,17 @@
+Alignment	Model	Conditions	Correct direction (%)	Published-effect Spearman	Directional percentile
+Matching population labels	Untreated reference	27	0.00	—	0.5000
+Matching population labels	Mean source response	27	76.65	0.3500	0.6925
+Matching population labels	Global response scaling	27	76.65	0.3500	0.6925
+Matching population labels	Perturbation reliability	27	76.65	0.3500	0.6925
+Matching population labels	Gene reliability	27	76.65	0.3484	0.6917
+Matching population labels	Low-rank response	27	77.19	0.3390	0.6856
+Matching population labels	scPerturbMix	27	77.93	0.3490	0.6960
+Matching population labels	Cross-context programme basis	27	76.81	0.3619	0.6958
+Parent/refined subset (exploratory)	Untreated reference	87	0.00	—	0.5000
+Parent/refined subset (exploratory)	Mean source response	87	78.36	0.4709	0.7219
+Parent/refined subset (exploratory)	Global response scaling	87	78.36	0.4709	0.7219
+Parent/refined subset (exploratory)	Perturbation reliability	87	78.36	0.4709	0.7219
+Parent/refined subset (exploratory)	Gene reliability	87	78.36	0.4706	0.7206
+Parent/refined subset (exploratory)	Low-rank response	87	80.13	0.4690	0.7283
+Parent/refined subset (exploratory)	scPerturbMix	87	80.88	0.4881	0.7376
+Parent/refined subset (exploratory)	Cross-context programme basis	87	79.02	0.4799	0.7297

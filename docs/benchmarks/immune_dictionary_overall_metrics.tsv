@@ -1,0 +1,9 @@
+model_id	Model	Condition-weighted MSE	Condition-weighted MAE	Response Pearson	Response Spearman	Equal-target MSE
+untreated	Untreated reference	0.018650	0.096003	—	—	0.022109
+source_mean	Source mean	0.020289	0.104331	0.1699	0.1005	0.023643
+global	Global scaling	0.017931	0.096809	0.1699	0.1005	0.021284
+compound	Condition gate	0.018042	0.096668	0.1699	0.1005	0.021381
+gene	Gene gate	0.017987	0.096431	0.1766	0.1001	0.021327
+lowrank	Low rank	0.017855	0.096395	0.1810	0.1009	0.021195
+program_gene	scPerturbMix	0.017906	0.096295	0.1937	0.1086	0.021249
+cross_context_secondary	Cross-source basis	0.017916	0.096284	0.1902	0.1071	0.021264

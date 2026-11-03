@@ -1,0 +1,26 @@
+[
+  {
+    "model": "scPerturbMix",
+    "population": "All",
+    "conditions": 438,
+    "mse": 0.017906352834303464,
+    "mae": 0.09629541942028522,
+    "response_pearson": 0.19371331370136702
+  },
+  {
+    "model": "Training mean",
+    "population": "All",
+    "conditions": 438,
+    "mse": 0.02028949193099018,
+    "mae": 0.10433057892273921,
+    "response_pearson": 0.16987986481114217
+  },
+  {
+    "model": "Untreated reference",
+    "population": "All",
+    "conditions": 438,
+    "mse": 0.01865026092407995,
+    "mae": 0.09600342025000305,
+    "response_pearson": null
+  }
+]

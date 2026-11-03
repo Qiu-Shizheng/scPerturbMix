@@ -1,0 +1,2 @@
+# Empty final fields in tabular data retain their tab delimiters.
+*.tsv text eol=lf whitespace=-blank-at-eol

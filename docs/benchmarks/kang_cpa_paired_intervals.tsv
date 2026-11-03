@@ -1,0 +1,65 @@
+Target	Reference	Comparator	Metric	Donors	Difference (scPerturbMix minus CPA)	95% interval lower	95% interval upper
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MSE	8	-0.0315018369823709	-0.0355970882211302	-0.0273367869788221
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MAE	8	-0.0155338062393184	-0.0165242450242829	-0.0143889011384312
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Response Pearson	8	0.17011097995891	0.1345754483107788	0.2088217098311125
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Response Spearman	8	-0.0806939321851507	-0.0949508544931019	-0.0654680942562203
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Hallmark MSE	8	-0.0223927095480396	-0.0261965136703581	-0.0182039712686787
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Hallmark Pearson	8	0.1387834742015202	0.0947447397675117	0.1930562434372369
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MMD squared	8	-0.1171926412436366	-0.1320500753138113	-0.101556300340632
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Energy distance	8	-6.281594360859202	-7.078443765516433	-5.5323399802299305
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MSE	8	-0.0322798179713009	-0.0369611133381687	-0.0274289535239686
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MAE	8	-0.0207532716344646	-0.0226145828759248	-0.0189089595988216
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Response Pearson	8	0.0564741293241864	0.0477108429270881	0.0648501092188985
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Response Spearman	8	0.0219078031029841	0.003865811808539	0.0387784535373173
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Hallmark MSE	8	-0.0193286994218906	-0.0227585148319074	-0.0157352516035299
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Hallmark Pearson	8	0.0056972675218983	0.0014850108401472	0.0101262596712427
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MMD squared	8	-0.1187338010590906	-0.13393935786924	-0.1027043699341735
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Energy distance	8	-4.791058785680167	-5.377522186370374	-4.18132453138796
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MSE	8	-0.0257849980369253	-0.0288763088356416	-0.0223421784009269
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MAE	8	-0.0144179312587351	-0.0163666901358197	-0.0124509970769766
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Response Pearson	8	0.1896102264436529	0.166913401793613	0.2073974731040059
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Response Spearman	8	-0.0545841557282658	-0.090254621253217	-0.0232576681666905
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Hallmark MSE	8	-0.0187890091799999	-0.0221770401362053	-0.0151197011536642
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Hallmark Pearson	8	0.1691948538470539	0.1134972589380799	0.2195411911871228
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	MMD squared	8	-0.0985482276435808	-0.1103882279001582	-0.0856857702487748
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA	Energy distance	8	-5.827118171805136	-6.559782251841939	-5.0985036249113005
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MSE	8	-0.021706062370364	-0.0257190252142138	-0.0177343504224374
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MAE	8	-0.0184602068830346	-0.020701027333572	-0.0161614907674267
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Response Pearson	8	0.036984004378605	0.0286204927284779	0.0478137882554634
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Response Spearman	8	0.0483495919767545	0.0325156420052323	0.0662563706905922
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Hallmark MSE	8	-0.0121480219914438	-0.0143458536829324	-0.0096640328914118
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Hallmark Pearson	8	-0.005025291043288	-0.012217501359933	0.0044977358037539
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	MMD squared	8	-0.0851361686878287	-0.0982381892458556	-0.0714158620737741
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (control-anchored)	Energy distance	8	-3.5530438187504174	-4.105559876456529	-2.9720855483508046
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MSE	8	-0.0418993850192964	-0.047594965942408	-0.0363718602718728
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MAE	8	-0.0211020683361566	-0.023521029153347	-0.0186293270972665
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Response Pearson	8	0.2833679916351925	0.2446646676490881	0.3126166813870593
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Response Spearman	8	0.0524004384290817	0.0153740602212572	0.0893034486863397
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Hallmark MSE	8	-0.0203038487098437	-0.0235202399550889	-0.016537757661165
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Hallmark Pearson	8	0.1477763321473695	0.117760932012062	0.1731522634545631
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MMD squared	8	-0.1145035999351927	-0.129969079345578	-0.0974491520587889
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Energy distance	8	-5.920642342329415	-6.606325801791188	-5.13884527061626
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MSE	8	-0.0277618296049839	-0.0319287122018331	-0.0232875481883422
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MAE	8	-0.0179776613013609	-0.0195975871663095	-0.0161745055006474
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Response Pearson	8	0.0316940205532543	0.0226374057945527	0.0429467283166395
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Response Spearman	8	-0.0009455142908845	-0.0210292833376258	0.0241384742937653
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Hallmark MSE	8	-0.0165594468360228	-0.0192947257868587	-0.0133041885738303
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Hallmark Pearson	8	-0.0020491628469305	-0.0041286613436659	0.0002326729408146
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MMD squared	8	-0.1024047412050755	-0.1154494183343261	-0.0877875418009947
+CD14+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Energy distance	8	-4.15008294360419	-4.666084562944689	-3.586532517611021
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MSE	8	-0.0356108459301538	-0.0421937879525713	-0.0298598118153596
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MAE	8	-0.0173317234491116	-0.0215879822817599	-0.0136593016252332
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Response Pearson	8	0.2723804429024254	0.236275073062648	0.3059911599761465
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Response Spearman	8	-0.023079265608053	-0.0753153518745007	0.0305650470470849
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Hallmark MSE	8	-0.0210156747932026	-0.0262817934051847	-0.0158065858330386
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Hallmark Pearson	8	0.1895871270419776	0.1275945050356352	0.2557401608505952
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	MMD squared	8	-0.0999553341616233	-0.1194073148524955	-0.0829924297914611
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup)	Energy distance	8	-5.785393096158556	-6.812389864049158	-4.873590496631188
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MSE	8	-0.0209497385464514	-0.0257679336959281	-0.0164253460394328
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MAE	8	-0.0170587895067586	-0.0199107329441667	-0.0144306951898917
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Response Pearson	8	0.0120834840859153	0.0066798901500545	0.0182190772981658
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Response Spearman	8	0.0051246568381453	-0.0060901315617291	0.0157147247918368
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Hallmark MSE	8	-0.0126982187188381	-0.0154580778958648	-0.0097071325580952
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Hallmark Pearson	8	-0.0102586810773964	-0.0155998306218109	-0.0043805818609464
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	MMD squared	8	-0.0807728046849453	-0.0965326035714614	-0.0651386551894766
+FCGR3A+ monocytes	scPerturbMix fixed OP3 parameters	CPA (post-warmup, control-anchored)	Energy distance	8	-3.3718448665828165	-4.038925338414095	-2.699617609140357

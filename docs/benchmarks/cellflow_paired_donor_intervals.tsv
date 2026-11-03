@@ -1,0 +1,33 @@
+cell_type	reference	comparator	metric	donors	difference_scperturbmix_minus_cellflow	ci95_lower	ci95_upper
+CD14+ Monocytes	scPerturbMix	CellFlow	mse	8	-0.012208223848063332	-0.018205263482884745	-0.006544333813625406
+CD14+ Monocytes	scPerturbMix	CellFlow	mae	8	-0.017197373913203248	-0.02561895095554546	-0.01025788437881498
+CD14+ Monocytes	scPerturbMix	CellFlow	response_pearson	8	0.054280479964203016	0.037767499328555165	0.07058714932391351
+CD14+ Monocytes	scPerturbMix	CellFlow	response_spearman	8	-0.0034263405370141276	-0.02201262069479628	0.015725798025236007
+CD14+ Monocytes	scPerturbMix	CellFlow	hallmark_mse	8	-0.005963163861838422	-0.008478740243853061	-0.003447587479823783
+CD14+ Monocytes	scPerturbMix	CellFlow	hallmark_pearson	8	0.026654344240096287	0.017825103938382488	0.036572418329718887
+CD14+ Monocytes	scPerturbMix	CellFlow	mmd_squared	8	-0.06292427234613451	-0.07757353838883384	-0.05097822599926181
+CD14+ Monocytes	scPerturbMix	CellFlow	energy_distance	8	-2.5828683417142826	-3.175855863037048	-2.081414672843471
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mse	8	-0.013206271500201004	-0.019100691929370625	-0.007806943402084328
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mae	8	-0.01842519560767648	-0.027025312103697425	-0.011369974996491573
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	response_pearson	8	0.060851814256950285	0.04276968053845547	0.07876961242132194
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	response_spearman	8	0.03502693166631938	0.01679409595424955	0.05429318003454451
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	hallmark_mse	8	-0.005763004235274472	-0.008247987978450201	-0.0033344672414776953
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	hallmark_pearson	8	0.027207929734847883	0.01835419501145759	0.037353294553450996
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mmd_squared	8	-0.06110884882389676	-0.07531953898722743	-0.04898945811718839
+CD14+ Monocytes	scPerturbMix	CellFlow (control residual restored)	energy_distance	8	-2.4576174286810115	-3.040258899144	-1.9836897354880454
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	mse	8	-0.008303188698834958	-0.012125592511978632	-0.003549128361156441
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	mae	8	-0.00643138002036641	-0.013722939508437924	0.0008217387994523418
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	response_pearson	8	0.03459935807736904	0.008540373936551876	0.06168762226399825
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	response_spearman	8	-0.12222586402370406	-0.16520889953576792	-0.07835241702532914
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	hallmark_mse	8	-0.0013538252145107593	-0.003430884213970393	0.0005265569290155282
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	hallmark_pearson	8	0.021994126863231073	0.01167396270010837	0.03284156194641943
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	mmd_squared	8	-0.04122387485137734	-0.051585182388189245	-0.030880202335984777
+FCGR3A+ Monocytes	scPerturbMix	CellFlow	energy_distance	8	-1.723000108003558	-2.138352648969968	-1.3153887701994265
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mse	8	-0.00813957129287296	-0.011645874151943321	-0.004494004573373473
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mae	8	-0.011625610678004761	-0.017348882833750804	-0.005706820987800029
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	response_pearson	8	0.04306211695609104	0.027781909432003753	0.0592322742909599
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	response_spearman	8	0.004537726475799739	-0.012635897189681685	0.021799195485522935
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	hallmark_mse	8	-0.0024859347343169766	-0.004358392495110795	-0.0005968323700033419
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	hallmark_pearson	8	0.022277414617868363	0.01188717887848516	0.032566410768070264
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	mmd_squared	8	-0.03926318227566862	-0.04975740403278487	-0.028911592326475114
+FCGR3A+ Monocytes	scPerturbMix	CellFlow (control residual restored)	energy_distance	8	-1.6014920490721165	-2.0138698170927567	-1.1784261580746171
